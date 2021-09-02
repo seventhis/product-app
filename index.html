@@ -62,7 +62,7 @@
     </style>
     <script>
     (async function init() {
-        const response = await fetch('http://localhost:3000/get-product');
+        const response = await fetch('http://192.168.231.136:8889/get-product');
         console.log("response", response);
         const user = await response.json();
         console.log(JSON.stringify(user));
@@ -85,7 +85,7 @@
             price: document.getElementById('input-price').value
         };
         
-        const response = await fetch('http://localhost:3000/update-product', {
+        const response = await fetch('http://192.168.231.136:8889/update-product', {
             method: "POST",
             headers: {
               'Accept': 'application/json',
