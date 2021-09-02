@@ -45,7 +45,6 @@ I have already developed the Dockerfile and the express app provided bellow,
 ~~~sh
 const express           = require('express');
 const path              = require('path');
-const fs                = require('fs');
 const MongoClient       = require('mongodb').MongoClient;
 const bodyParser        = require('body-parser');
 const app               = express();
