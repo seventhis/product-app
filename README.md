@@ -14,7 +14,31 @@ Docker Engine is available on a variety of Linux platforms, macOS and Windows 10
 
 I have already developed the Dockerfile and the express app provided bellow,
 
-### Node/Express app 
+### Node/Express app
+
+## package.json
+
+~~~sh
+
+{
+  "name": "basicexpressapp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Abderrahmane Boulahdour",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongodb": "^3.3.3"
+  }
+}
+
+~~~
 
 ## server.js
 
