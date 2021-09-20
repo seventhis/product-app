@@ -47,7 +47,11 @@ const express           = require('express');
 const path              = require('path');
 const MongoClient       = require('mongodb').MongoClient;
 const bodyParser        = require('body-parser');
+const dotenv            = require("dotenv");
+const cors              = require('cors');
 const app               = express();
+
+dotenv.config();
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -60,15 +64,18 @@ app.get('/', function (req, res) {
   });
 
 // To use when you start the application locally
-var mongoUrlLocal = "mongodb+srv://abderrahmane:ertyuiop@cluster0.urppt.mongodb.net/productApp?retryWrites=true&w=majority"
+var mongoUrlLocal = "mongodb://192.168.39.1:27017/"
 
 // To use when you start the application as docker container
-var mongoUrlDocker = "mongodb://admin:password@mongodb";
+// var mongoUrlDocker = "mongodb://admin:password@mongodb";
 
 // Pass these options to mongo client connect request to avoid DeprecationWarning for current Server Discovery and Monitoring engine
 var mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
-// "offer-detail" database name used
+// Middleware
+app.use(cors());
+
+// "productApp" database name used
 var databaseName = "productApp";
 
 app.post('/update-product', function (req, res) {
@@ -128,7 +135,7 @@ app.listen(3000, function () {
     </head>
     <script>
     (async function init() {
-        const response = await fetch('http://localhost:3000/get-product');
+        const response = await fetch('http://192.168.39.1:3000/get-product');
         console.log("response", response);
         const user = await response.json();
         console.log(JSON.stringify(user));
@@ -138,7 +145,9 @@ app.listen(3000, function () {
         document.getElementById('price').textContent = user.price ? user.price : '10$';
 
         const cont = document.getElementById('container');
+        const img1 = document.getElementById('img-1');
         cont.style.display = 'block';
+        img1.style.display = 'block';
     })();
 
     async function handleUpdateProductRequest() {
@@ -151,7 +160,7 @@ app.listen(3000, function () {
             price: document.getElementById('input-price').value
         };
         
-        const response = await fetch('http://localhost:3000/update-product', {
+        const response = await fetch('http://192.168.39.1:3000/update-product', {
             method: "POST",
             headers: {
               'Accept': 'application/json',
@@ -167,6 +176,12 @@ app.listen(3000, function () {
 
         cont.style.display = 'block';
         contEdit.style.display = 'none';
+
+        const img1 = document.getElementById('img-1');
+        const img2 = document.getElementById('img-2');
+
+        img1.style.display = 'block';
+        img2.style.display = 'none';
     }
 
     function updateProduct() {
@@ -179,6 +194,12 @@ app.listen(3000, function () {
 
         cont.style.display = 'none';
         contEdit.style.display = 'block';
+
+        const img1 = document.getElementById('img-1');
+        const img2 = document.getElementById('img-2');
+
+        img1.style.display = 'none';
+        img2.style.display = 'block';
     }
     </script>
     <body>
