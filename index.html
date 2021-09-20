@@ -22,7 +22,7 @@
     font-family: Raleway;
     }
     .container {
-        margin: 80px auto;
+        margin: 50px auto;
         width: 100%;
     }
     .button {
@@ -31,12 +31,15 @@
         border-radius: 6px;
         font-size: 15px;
         margin-top: 20px;
+        background: #2F4960;
+        color: azure;
+        border-color: #2F4960;
     }
     span {
         font-size: 18px;
     }
     hr {
-        width: 400px;
+        width: 100%;
         margin-left: 0;
     }
     h3 {
@@ -48,6 +51,14 @@
     #container-edit {
         display: none;
     }
+    #img-1 {
+        display: none;
+    }
+
+    #img-2 {
+        display: none;
+    }
+
     #container-edit input {
         height: 38px;
     }
@@ -55,14 +66,43 @@
         margin: 25px 0;
     }
     #container-edit input {
-        width: 200px;
+        width: 350px;
         font-size: 25px;
-        padding: 8px !important;
+        margin-left: 10px;
+        padding: 10px !important;
+        padding-top: 20px !important;
+        padding-bottom: 20px !important;
+        background: none;
+        color: white;
+        border: 1px solid azure;
     }
+
+    /* General Styles */
+
+    /* width */
+    ::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: #c1c1c1; 
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: #002140dc; 
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+    }
+
     </style>
     <script>
     (async function init() {
-        const response = await fetch('http://192.168.231.136:8889/get-product');
+        const response = await fetch('http://192.168.39.1:3000/get-product');
         console.log("response", response);
         const user = await response.json();
         console.log(JSON.stringify(user));
@@ -72,7 +112,9 @@
         document.getElementById('price').textContent = user.price ? user.price : '10$';
 
         const cont = document.getElementById('container');
+        const img1 = document.getElementById('img-1');
         cont.style.display = 'block';
+        img1.style.display = 'block';
     })();
 
     async function handleUpdateProductRequest() {
@@ -85,7 +127,7 @@
             price: document.getElementById('input-price').value
         };
         
-        const response = await fetch('http://192.168.231.136:8889/update-product', {
+        const response = await fetch('http://192.168.39.1:3000/update-product', {
             method: "POST",
             headers: {
               'Accept': 'application/json',
@@ -101,6 +143,12 @@
 
         cont.style.display = 'block';
         contEdit.style.display = 'none';
+
+        const img1 = document.getElementById('img-1');
+        const img2 = document.getElementById('img-2');
+
+        img1.style.display = 'block';
+        img2.style.display = 'none';
     }
 
     function updateProduct() {
@@ -113,34 +161,52 @@
 
         cont.style.display = 'none';
         contEdit.style.display = 'block';
+
+        const img1 = document.getElementById('img-1');
+        const img2 = document.getElementById('img-2');
+
+        img1.style.display = 'none';
+        img2.style.display = 'block';
     }
     </script>
     <body>
-    <div id='container' class='container'>
-        <br/><br/><br/>
-        <h1>Product</h1>
-        <br/>
-        <!-- <img src='profile-picture' alt="user-profile"> -->
-        <span>Name: </span><h3 id='name'>Product 01</h3>
-        <hr />
-        <span>Category: </span><h3 id='category'>Tech</h3>
-        <hr />
-        <span>Price: </span><h3 id='price'>10$</h3>
-        <hr />
-        <button class='button' onclick="updateProduct()">Edit Product</button>
+    <div class='container d-flex flex-wrap justify-content-between'>
+        <div id='container' class="col-md-6">
+            <br/><br/><br/>
+            <h1>Product</h1>
+            <br/>
+            <!-- <img src='profile-picture' alt="user-profile"> -->
+            <span>Name: </span><h3 id='name'>Product 01</h3>
+            <hr />
+            <span>Category: </span><h3 id='category'>Tech</h3>
+            <hr />
+            <span>Price: </span><h3 id='price'>10$</h3>
+            <hr />
+            <button class='button' onclick="updateProduct()">Edit Product</button>
+        </div>
+        <div class="col-md-6" id='img-1'>
+            <br/><br/>
+            <img src="https://cdn4.iconfinder.com/data/icons/shopping-460/200/customize-product-512.png" alt="image" width="100%" height="450" />
+        </div>
     </div>
-    <div class='container' id='container-edit'>
-        <br/><br/><br/>
-        <h1>Product Edit: </h1>
-        <br/>
-        <!-- <img src='profile-picture' alt="user-profile"> -->
-        <span>Name: </span><label for='input-name'></label><input type="text" id='input-name' value='Product 01' />
-        <hr />
-        <span>Category: </span><label for='input-category'></label><input type="text" id='input-category' value='Tech' />
-        <hr />
-        <span>Price: </span><label for='input-price'></label><input type="text" id='input-price' value='10$' />
-        <hr />
-        <button class='button' onclick="handleUpdateProductRequest()">Update Product</button>
+    <div class='container d-flex flex-wrap justify-content-between'>
+        <div id='container-edit' class="col-md-6">
+            <br/><br/>
+            <h1>Product Edit: </h1>
+            <br/>
+            <!-- <img src='profile-picture' alt="user-profile"> -->
+            <span>Name: </span><label for='input-name'></label><input type="text" id='input-name' value='Product 01' />
+            <hr />
+            <span>Category: </span><label for='input-category'></label><input type="text" id='input-category' value='Tech' />
+            <hr />
+            <span>Price: </span><label for='input-price'></label><input type="text" id='input-price' value='10$' />
+            <hr />
+            <button class='button' onclick="handleUpdateProductRequest()">Update Product</button>
+        </div>
+        <div class="col-md-6" id='img-2'>
+            <br/><br/>
+            <img src="https://cdn4.iconfinder.com/data/icons/shopping-460/200/customize-product-512.png" alt="image" width="100%" height="450" />
+        </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
