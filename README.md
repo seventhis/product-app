@@ -135,7 +135,7 @@ app.listen(3000, function () {
     </head>
     <script>
     (async function init() {
-        const response = await fetch('http://192.168.39.1:3000/get-product');
+        const response = await fetch('http://192.168.39.1:30000/get-product');
         console.log("response", response);
         const user = await response.json();
         console.log(JSON.stringify(user));
@@ -160,7 +160,7 @@ app.listen(3000, function () {
             price: document.getElementById('input-price').value
         };
         
-        const response = await fetch('http://192.168.39.1:3000/update-product', {
+        const response = await fetch('http://192.168.39.1:30000/update-product', {
             method: "POST",
             headers: {
               'Accept': 'application/json',
