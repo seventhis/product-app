@@ -19,10 +19,10 @@ app.get('/', function (req, res) {
   });
 
 // To use when you start the application locally
-var mongoUrlLocal = "mongodb://192.168.39.1:27017/"
+// var mongoUrlLocal = "mongodb://192.168.39.1:27017/"
 
 // To use when you start the application as docker container
-// var mongoUrlDocker = "mongodb://admin:password@mongodb";
+var mongoUrlDocker = "mongodb://admin:password@mongodb";
 
 // Pass these options to mongo client connect request to avoid DeprecationWarning for current Server Discovery and Monitoring engine
 var mongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
@@ -36,7 +36,7 @@ var databaseName = "productApp";
 app.post('/update-product', function (req, res) {
   var productObj = req.body;
 
-  MongoClient.connect(mongoUrlLocal, mongoClientOptions, function (err, client) {
+  MongoClient.connect(mongoUrlDocker, mongoClientOptions, function (err, client) {
     if (err) throw err;
 
     var db = client.db(databaseName);
@@ -58,7 +58,7 @@ app.post('/update-product', function (req, res) {
 app.get('/get-product', function (req, res) {
   var response = {};
   // Connect to the db
-  MongoClient.connect(mongoUrlLocal, mongoClientOptions, function (err, client) {
+  MongoClient.connect(mongoUrlDocker, mongoClientOptions, function (err, client) {
     if (err) throw err;
 
     var db = client.db(databaseName);
