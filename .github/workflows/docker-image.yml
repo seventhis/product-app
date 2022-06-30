@@ -1,4 +1,4 @@
-name: CI Pipeline For a Flask App
+name: CI Pipeline For a Product App
 
 on:
   push:
