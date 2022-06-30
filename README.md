@@ -29,7 +29,7 @@ I have already developed the Dockerfile and the express app provided bellow,
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "author": "Abderrahmane Boulahdour",
+  "author": "Seven This",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
@@ -64,7 +64,7 @@ app.get('/', function (req, res) {
   });
 
 // To use when you start the application locally
-var mongoUrlLocal = "mongodb://192.168.39.1:27017/"
+var mongoUrlLocal = "mongodb://localhost:27017/"
 
 // To use when you start the application as docker container
 // var mongoUrlDocker = "mongodb://admin:password@mongodb";
@@ -135,7 +135,7 @@ app.listen(3000, function () {
     </head>
     <script>
     (async function init() {
-        const response = await fetch('http://192.168.39.1:30000/get-product');
+        const response = await fetch('http://localhost:30000/get-product');
         console.log("response", response);
         const user = await response.json();
         console.log(JSON.stringify(user));
@@ -160,7 +160,7 @@ app.listen(3000, function () {
             price: document.getElementById('input-price').value
         };
         
-        const response = await fetch('http://192.168.39.1:30000/update-product', {
+        const response = await fetch('http://localhost:30000/update-product', {
             method: "POST",
             headers: {
               'Accept': 'application/json',
